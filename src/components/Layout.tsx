@@ -1,6 +1,15 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Sun, Moon, Menu, X } from "lucide-react";
+import {
+  Sun,
+  Moon,
+  Menu,
+  X,
+  Mail,
+  Github,
+  Linkedin,
+  Twitter,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -29,6 +38,33 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     { path: "/blog", label: "Blog" },
     { path: "/resume", label: "Resume" },
     { path: "/contact", label: "Contact" },
+  ];
+
+  const socialLinks = [
+    {
+      icon: <Mail className="w-5 h-5" />,
+      href: "mailto:your.email@example.com",
+      label: "Email",
+      color: "hover:text-blue-500",
+    },
+    {
+      icon: <Github className="w-5 h-5" />,
+      href: "https://github.com/yourusername",
+      label: "GitHub",
+      color: "hover:text-gray-900 dark:hover:text-white",
+    },
+    {
+      icon: <Linkedin className="w-5 h-5" />,
+      href: "https://linkedin.com/in/yourusername",
+      label: "LinkedIn",
+      color: "hover:text-blue-600",
+    },
+    {
+      icon: <Twitter className="w-5 h-5" />,
+      href: "https://twitter.com/yourusername",
+      label: "Twitter",
+      color: "hover:text-blue-400",
+    },
   ];
 
   return (
@@ -113,10 +149,65 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
       <main className="pt-16">{children}</main>
 
-      <footer className="bg-slate-50 dark:bg-slate-800 py-8">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="text-center font-inter text-slate-600 dark:text-slate-400">
-            <p>© {new Date().getFullYear()} Nitish. All rights reserved.</p>
+      {/* Fixed Contact Sidebar */}
+      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40">
+        <div className="flex flex-col gap-4 p-3 rounded-full bg-white/10 dark:bg-slate-800/10 backdrop-blur-md shadow-lg border border-white/20 dark:border-slate-700/20">
+          {socialLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`p-2 rounded-full bg-white/20 dark:bg-slate-800/20 hover:bg-white/40 dark:hover:bg-slate-700/40 transition-all duration-300 group ${link.color}`}
+              aria-label={link.label}
+            >
+              {link.icon}
+              <span className="fixed right-16 py-1 px-2 rounded bg-white dark:bg-slate-800 text-sm font-medium shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                {link.label}
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Glass Effect Footer */}
+      <footer className="relative mt-auto">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/40 dark:to-slate-900/40 pointer-events-none" />
+        <div className="relative bg-white/30 dark:bg-slate-800/30 backdrop-blur-md border-t border-white/20 dark:border-slate-700/20">
+          <div className="max-w-[1200px] mx-auto px-6 py-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* <div>
+                <h3 className="font-jetbrains text-lg font-bold text-slate-900 dark:text-white mb-4">
+                  About Me
+                </h3>
+                <p className="text-slate-600 dark:text-slate-300">
+                  Software developer passionate about creating innovative web solutions
+                  and exploring new technologies.
+                </p>
+              </div> */}
+
+              <div>
+                <h3 className="font-jetbrains text-lg font-bold text-slate-900 dark:text-white mb-4">
+                  Get in Touch
+                </h3>
+                <p className="text-slate-600 dark:text-slate-300 mb-4">
+                  Have a project in mind? Let's work together to bring your
+                  ideas to life.
+                </p>
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 bg-primary/80 hover:bg-primary text-white px-4 py-2 rounded-lg transition-colors duration-200 backdrop-blur-sm"
+                >
+                  Contact Me
+                  <Mail className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+            <div className="mt-8 pt-6 border-t border-slate-200/20 dark:border-slate-700/20 text-center">
+              <p className="text-slate-600 dark:text-slate-400">
+                © {new Date().getFullYear()} Nitish. All rights reserved.
+              </p>
+            </div>
           </div>
         </div>
       </footer>
