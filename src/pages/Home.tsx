@@ -31,11 +31,11 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* <div className="absolute bottom-8 right-8 flex gap-4 bg-white/10 backdrop-blur-sm p-4 rounded-lg">
+          <div className="absolute bottom-8 right-8 flex gap-4 bg-white/10 backdrop-blur-sm p-4 rounded-lg">
             <div className="flex flex-col items-center gap-2">
               <CloudRain className="w-5 h-5 text-slate-600" />
               <div className="w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
-                <div 
+                <div
                   className="h-full bg-primary transition-all duration-300"
                   style={{ width: `${weatherControls.rainIntensity * 100}%` }}
                 />
@@ -44,7 +44,7 @@ export default function Home() {
             <div className="flex flex-col items-center gap-2">
               <Cloud className="w-5 h-5 text-slate-600" />
               <div className="w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
-                <div 
+                <div
                   className="h-full bg-primary transition-all duration-300"
                   style={{ width: `${weatherControls.cloudDensity * 100}%` }}
                 />
@@ -53,13 +53,13 @@ export default function Home() {
             <div className="flex flex-col items-center gap-2">
               <Wind className="w-5 h-5 text-slate-600" />
               <div className="w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
-                <div 
+                <div
                   className="h-full bg-primary transition-all duration-300"
                   style={{ width: `${weatherControls.windSpeed * 100}%` }}
                 />
               </div>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
