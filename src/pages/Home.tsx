@@ -1,4 +1,4 @@
-import { ArrowRight, Cloud, CloudRain, Wind } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import WaveBackground from "../components/WaveBackground";
 import { useWeatherControls } from "../hooks/useWeatherControls";
