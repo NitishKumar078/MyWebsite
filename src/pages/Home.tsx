@@ -1,15 +1,11 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import WaveBackground from "../components/WaveBackground";
-import { useWeatherControls } from "../hooks/useWeatherControls";
 
 export default function Home() {
-  const weatherControls = useWeatherControls();
-  const isDark = document.documentElement.classList.contains("dark");
-
   return (
     <div className="min-h-screen flex items-center relative overflow-hidden">
-      <WaveBackground {...weatherControls} isDark={isDark} />
+      <WaveBackground />
       <div className="max-w-[1200px] mx-auto px-6 relative">
         <div className="grid md:grid-cols-[60%_40%] gap-12 items-center">
           <div>

@@ -1,18 +1,30 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-interface WeatherProps {
-  cloudDensity?: number;
-  windSpeed?: number;
-  isDark?: boolean;
-}
-
-const WaveBackground: React.FC<WeatherProps> = ({
-  cloudDensity = 0.6,
-  windSpeed = 0.3,
-  isDark = false,
-}) => {
+const WaveBackground = () => {
+  const [isDark, setIsDark] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    // Initial dark mode check
+    setIsDark(document.documentElement.classList.contains("dark"));
+
+    // Observer for dark mode changes
+    const observer = new MutationObserver((mutations) => {
+      if (mutations.some((mutation) => mutation.attributeName === "class")) {
+        setIsDark(document.documentElement.classList.contains("dark"));
+      }
+    });
+
+    // Start observing dark mode changes
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    // Clean up observer on unmount
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -195,7 +207,7 @@ const WaveBackground: React.FC<WeatherProps> = ({
       window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [cloudDensity, windSpeed, isDark]);
+  }, [isDark]);
 
   return (
     <canvas

@@ -172,43 +172,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
       {/* Glass Effect Footer */}
       <footer className="relative mt-auto">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/40 dark:to-slate-900/40 pointer-events-none" />
-        <div className="relative bg-white/30 dark:bg-slate-800/30 backdrop-blur-md border-t border-white/20 dark:border-slate-700/20">
-          <div className="max-w-[1200px] mx-auto px-6 py-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* <div>
-                <h3 className="font-jetbrains text-lg font-bold text-slate-900 dark:text-white mb-4">
-                  About Me
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300">
-                  Software developer passionate about creating innovative web solutions
-                  and exploring new technologies.
-                </p>
-              </div> */}
-
-              <div>
-                <h3 className="font-jetbrains text-lg font-bold text-slate-900 dark:text-white mb-4">
-                  Get in Touch
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300 mb-4">
-                  Have a project in mind? Let's work together to bring your
-                  ideas to life.
-                </p>
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 bg-primary/80 hover:bg-primary text-white px-4 py-2 rounded-lg transition-colors duration-200 backdrop-blur-sm"
-                >
-                  Contact Me
-                  <Mail className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-            <div className="mt-8 pt-6 border-t border-slate-200/20 dark:border-slate-700/20 text-center">
-              <p className="text-slate-600 dark:text-slate-400">
-                © {new Date().getFullYear()} Nitish. All rights reserved.
-              </p>
-            </div>
-          </div>
+        <div className="mt-8 pt-6 border-t border-slate-200/20 dark:border-slate-700/20 text-center">
+          <p className="text-slate-600 dark:text-slate-400">
+            © {new Date().getFullYear()} Nitish. All rights reserved.
+          </p>
         </div>
       </footer>
     </div>
