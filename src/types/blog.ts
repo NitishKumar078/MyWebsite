@@ -1,4 +1,4 @@
-export type PostStatus = 'draft' | 'published';
+export type PostStatus = "draft" | "published";
 
 export interface BlogPost {
   id: string;
@@ -28,5 +28,5 @@ export interface BlogFilter {
     end?: Date;
   };
   status?: PostStatus;
-  sortBy?: 'newest' | 'oldest' | 'popular';
+  sortBy?: "newest" | "oldest" | "popular";
 }

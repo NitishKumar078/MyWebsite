@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Search,
   Calendar,
@@ -7,31 +7,12 @@ import {
 } from "lucide-react";
 import { BlogFilter } from "../types/blog";
 import { useBlogPosts } from "../hooks/useBlogPosts";
-import { supabase } from "../lib/supabase";
-import { User } from "@supabase/supabase-js";
 
 export default function Blog() {
   const [filter, setFilter] = useState<BlogFilter>({
     sortBy: "newest",
   });
-  const [user, setUser] = useState<User | null>(null);
   const { posts, loading, error } = useBlogPosts(filter);
-
-  useEffect(() => {
-    // Check current auth status
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      setUser(user || null);
-    });
-
-    // Listen for auth changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user || null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
 
   return (
     <div className="min-h-screen py-20">
