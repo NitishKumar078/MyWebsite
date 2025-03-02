@@ -1,29 +1,18 @@
 import React, { useEffect, useRef } from "react";
 
 interface WeatherProps {
-  rainIntensity?: number;
   cloudDensity?: number;
   windSpeed?: number;
   isDark?: boolean;
 }
 
-interface Raindrop {
-  x: number;
-  y: number;
-  length: number;
-  speed: number;
-  opacity: number;
-}
-
 const WaveBackground: React.FC<WeatherProps> = ({
-  rainIntensity = 0.5,
   cloudDensity = 0.6,
   windSpeed = 0.3,
-  isDark = false
+  isDark = false,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
-  const raindropsRef = useRef<Raindrop[]>([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -35,29 +24,23 @@ const WaveBackground: React.FC<WeatherProps> = ({
     let animationFrameId: number;
     let time = 0;
 
-    const createRaindrop = (x?: number) => {
-      return {
-        x: x ?? Math.random() * canvas.width,
-        y: -10,
-        length: 10 + Math.random() * 20,
-        speed: (15 + Math.random() * 10) * rainIntensity,
-        opacity: 0.3 + Math.random() * 0.5,
-      };
-    };
-
     const drawSun = () => {
       const centerX = canvas.width * 0.85;
       const centerY = canvas.height * 0.2;
       const radius = 40;
-      
+
       // Create gradient for sun glow
       const gradient = ctx.createRadialGradient(
-        centerX, centerY, radius * 0.5,
-        centerX, centerY, radius * 2
+        centerX,
+        centerY,
+        radius * 0.5,
+        centerX,
+        centerY,
+        radius * 2
       );
-      gradient.addColorStop(0, 'rgba(255, 170, 0, 0.8)');
-      gradient.addColorStop(0.5, 'rgba(255, 170, 0, 0.2)');
-      gradient.addColorStop(1, 'rgba(255, 170, 0, 0)');
+      gradient.addColorStop(0, "rgba(255, 170, 0, 0.8)");
+      gradient.addColorStop(0.5, "rgba(255, 170, 0, 0.2)");
+      gradient.addColorStop(1, "rgba(255, 170, 0, 0)");
 
       // Draw outer glow
       ctx.fillStyle = gradient;
@@ -66,13 +49,13 @@ const WaveBackground: React.FC<WeatherProps> = ({
       ctx.fill();
 
       // Draw sun core
-      ctx.fillStyle = '#FFD700';
+      ctx.fillStyle = "#FFD700";
       ctx.beginPath();
       ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
       ctx.fill();
 
       // Draw sun rays
-      ctx.strokeStyle = '#FFD700';
+      ctx.strokeStyle = "#FFD700";
       ctx.lineWidth = 3;
       for (let i = 0; i < 12; i++) {
         const angle = (i * Math.PI) / 6;
@@ -80,7 +63,7 @@ const WaveBackground: React.FC<WeatherProps> = ({
         const y1 = centerY + Math.sin(angle) * (radius * 1.5);
         const x2 = centerX + Math.cos(angle) * (radius * 2);
         const y2 = centerY + Math.sin(angle) * (radius * 2);
-        
+
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
@@ -95,12 +78,16 @@ const WaveBackground: React.FC<WeatherProps> = ({
 
       // Create gradient for moon glow
       const gradient = ctx.createRadialGradient(
-        centerX, centerY, radius * 0.5,
-        centerX, centerY, radius * 2
+        centerX,
+        centerY,
+        radius * 0.5,
+        centerX,
+        centerY,
+        radius * 2
       );
-      gradient.addColorStop(0, 'rgba(200, 200, 255, 0.4)');
-      gradient.addColorStop(0.5, 'rgba(200, 200, 255, 0.1)');
-      gradient.addColorStop(1, 'rgba(200, 200, 255, 0)');
+      gradient.addColorStop(0, "rgba(200, 200, 255, 0.4)");
+      gradient.addColorStop(0.5, "rgba(200, 200, 255, 0.1)");
+      gradient.addColorStop(1, "rgba(200, 200, 255, 0)");
 
       // Draw outer glow
       ctx.fillStyle = gradient;
@@ -109,22 +96,28 @@ const WaveBackground: React.FC<WeatherProps> = ({
       ctx.fill();
 
       // Draw moon
-      ctx.fillStyle = '#E6E6FA';
+      ctx.fillStyle = "#E6E6FA";
       ctx.beginPath();
       ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
       ctx.fill();
 
       // Draw craters
-      ctx.fillStyle = '#D3D3D3';
+      ctx.fillStyle = "#D3D3D3";
       const craters = [
         { x: -15, y: -10, r: 8 },
         { x: 10, y: 5, r: 6 },
-        { x: -5, y: 15, r: 5 }
+        { x: -5, y: 15, r: 5 },
       ];
 
-      craters.forEach(crater => {
+      craters.forEach((crater) => {
         ctx.beginPath();
-        ctx.arc(centerX + crater.x, centerY + crater.y, crater.r, 0, Math.PI * 2);
+        ctx.arc(
+          centerX + crater.x,
+          centerY + crater.y,
+          crater.r,
+          0,
+          Math.PI * 2
+        );
         ctx.fill();
       });
     };
@@ -132,10 +125,6 @@ const WaveBackground: React.FC<WeatherProps> = ({
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-
-      raindropsRef.current = Array(Math.floor(100 * rainIntensity))
-        .fill(null)
-        .map(() => createRaindrop());
     };
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -145,35 +134,16 @@ const WaveBackground: React.FC<WeatherProps> = ({
       };
     };
 
-    const drawRaindrop = (drop: Raindrop) => {
-      ctx.beginPath();
-      ctx.strokeStyle = `rgba(156, 163, 175, ${drop.opacity})`;
-      ctx.lineWidth = 1;
-      ctx.moveTo(drop.x, drop.y);
-      ctx.lineTo(
-        drop.x + Math.sin(time * 0.1) * windSpeed * 2,
-        drop.y + drop.length
-      );
-      ctx.stroke();
-    };
-
-    const updateRain = () => {
-      raindropsRef.current = raindropsRef.current.filter((drop) => {
-        drop.y += drop.speed;
-        drop.x += Math.sin(time * 0.1) * windSpeed * 2;
-        return drop.y < canvas.height;
-      });
-
-      while (raindropsRef.current.length < 100 * rainIntensity) {
-        raindropsRef.current.push(createRaindrop());
-      }
-    };
-
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Draw waves
-      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      const gradient = ctx.createLinearGradient(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
       gradient.addColorStop(0, "rgba(37, 99, 235, 0.1)");
       gradient.addColorStop(0.5, "rgba(56, 189, 248, 0.1)");
       gradient.addColorStop(1, "rgba(30, 41, 59, 0.1)");
@@ -211,10 +181,6 @@ const WaveBackground: React.FC<WeatherProps> = ({
         drawSun();
       }
 
-      // Update and draw weather effects
-      updateRain();
-      raindropsRef.current.forEach(drawRaindrop);
-
       time += 1;
       animationFrameId = requestAnimationFrame(draw);
     };
@@ -229,7 +195,7 @@ const WaveBackground: React.FC<WeatherProps> = ({
       window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [rainIntensity, cloudDensity, windSpeed, isDark]);
+  }, [cloudDensity, windSpeed, isDark]);
 
   return (
     <canvas
