@@ -1,66 +1,77 @@
-import React from 'react';
-import { Calendar, Award, BookOpen, Briefcase, ChevronRight, Star } from 'lucide-react';
-import { TimelineItem } from '../types';
+import React from "react";
+import {
+  Calendar,
+  Award,
+  BookOpen,
+  Briefcase,
+  ChevronRight,
+  Star,
+} from "lucide-react";
+import { TimelineItem } from "../types";
 
 const experiences: TimelineItem[] = [
   {
-    id: 'exp1',
-    title: 'Senior Software Developer',
-    company: 'Tech Innovations Inc.',
-    period: '2021 - Present',
-    description: 'Led development of cloud-native applications using React and Node.js. Mentored junior developers and implemented CI/CD pipelines.',
+    id: "exp1",
+    title: "Senior Software Developer",
+    company: "Tech Innovations Inc.",
+    period: "2021 - Present",
+    description:
+      "Led development of cloud-native applications using React and Node.js. Mentored junior developers and implemented CI/CD pipelines.",
   },
   {
-    id: 'exp2',
-    title: 'Full Stack Developer',
-    company: 'Digital Solutions Ltd.',
-    period: '2019 - 2021',
-    description: 'Developed and maintained multiple web applications. Improved application performance by 40% through optimization techniques.',
-  },
-  {
-    id: 'exp3',
-    title: 'Junior Developer',
-    company: 'StartUp Hub',
-    period: '2018 - 2019',
-    description: 'Collaborated in agile team to deliver web applications. Implemented responsive designs and integrated third-party APIs.',
+    id: "exp3",
+    title: "Junior Developer",
+    company: "StartUp Hub",
+    period: "2018 - 2019",
+    description:
+      "Collaborated in agile team to deliver web applications. Implemented responsive designs and integrated third-party APIs.",
   },
 ];
 
 const education = [
   {
-    id: 'edu1',
-    title: 'Master of Computer Science',
-    company: 'Tech University',
-    period: '2016 - 2018',
-    description: 'Specialized in Software Engineering. Graduated with honors. Research focus on distributed systems.',
+    id: "edu1",
+    title: "Master of Computer Science",
+    company: "Tech University",
+    period: "2016 - 2018",
+    description:
+      "Specialized in Software Engineering. Graduated with honors. Research focus on distributed systems.",
   },
   {
-    id: 'edu2',
-    title: 'Bachelor of Computer Science',
-    company: 'State University',
-    period: '2012 - 2016',
-    description: 'Dean\'s List all semesters. Led programming club. Completed internship at major tech company.',
+    id: "edu2",
+    title: "Bachelor of Computer Science",
+    company: "State University",
+    period: "2012 - 2016",
+    description:
+      "Dean's List all semesters. Led programming club. Completed internship at major tech company.",
   },
 ];
 
 const skills = [
-  { category: 'Frontend', items: ['React', 'TypeScript', 'Tailwind CSS', 'Next.js'] },
-  { category: 'Backend', items: ['Node.js', 'Python', 'PostgreSQL', 'Redis'] },
-  { category: 'DevOps', items: ['Docker', 'AWS', 'CI/CD', 'Kubernetes'] },
-  { category: 'Tools', items: ['Git', 'VS Code', 'Figma', 'Postman'] },
+  {
+    category: "Frontend",
+    items: ["React", "TypeScript", "Tailwind CSS", "Next.js"],
+  },
+  { category: "Backend", items: ["Node.js", "Python", "PostgreSQL", "Redis"] },
+  { category: "DevOps", items: ["Docker", "AWS", "CI/CD", "Kubernetes"] },
+  { category: "Tools", items: ["Git", "VS Code", "Figma", "Postman"] },
 ];
 
 const certifications = [
-  'AWS Certified Solutions Architect',
-  'Google Cloud Professional Developer',
-  'MongoDB Certified Developer',
-  'Certified Kubernetes Administrator',
+  "AWS Certified Solutions Architect",
+  "Google Cloud Professional Developer",
+  "MongoDB Certified Developer",
+  "Certified Kubernetes Administrator",
 ];
 
-const TimelineSection = ({ items, icon: Icon, title }: { 
-  items: TimelineItem[],
-  icon: React.ElementType,
-  title: string 
+const TimelineSection = ({
+  items,
+  icon: Icon,
+  title,
+}: {
+  items: TimelineItem[];
+  icon: React.ElementType;
+  title: string;
 }) => (
   <div className="mb-12">
     <div className="flex items-center gap-2 mb-6">
@@ -69,10 +80,7 @@ const TimelineSection = ({ items, icon: Icon, title }: {
     </div>
     <div className="space-y-8">
       {items.map((item, index) => (
-        <div
-          key={item.id}
-          className="relative pl-8 group"
-        >
+        <div key={item.id} className="relative pl-8 group">
           <div className="absolute left-0 top-0 w-4 h-4 rounded-full border-2 border-primary bg-white dark:bg-slate-900 group-hover:bg-primary transition-colors duration-300" />
           {index !== items.length - 1 && (
             <div className="absolute left-[7px] top-4 w-[2px] h-[calc(100%+2rem)] bg-gray-200 dark:bg-gray-700" />
@@ -85,7 +93,9 @@ const TimelineSection = ({ items, icon: Icon, title }: {
               <ChevronRight className="w-4 h-4" />
               <span>{item.company}</span>
             </div>
-            <p className="text-gray-600 dark:text-gray-400">{item.description}</p>
+            <p className="text-gray-600 dark:text-gray-400">
+              {item.description}
+            </p>
           </div>
         </div>
       ))}
@@ -107,7 +117,7 @@ const SkillsSection = () => (
         >
           <h3 className="font-bold mb-3">{category}</h3>
           <div className="flex flex-wrap gap-2">
-            {items.map(item => (
+            {items.map((item) => (
               <span
                 key={item}
                 className="px-2 py-1 text-sm rounded-full bg-primary/10 text-primary"
@@ -149,8 +159,9 @@ export default function About() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">About Me</h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Passionate software developer with expertise in full-stack development,
-            cloud architecture, and a track record of delivering innovative solutions.
+            Passionate software developer with expertise in full-stack
+            development, cloud architecture, and a track record of delivering
+            innovative solutions.
           </p>
         </div>
 
@@ -160,11 +171,7 @@ export default function About() {
           title="Professional Experience"
         />
 
-        <TimelineSection
-          items={education}
-          icon={BookOpen}
-          title="Education"
-        />
+        <TimelineSection items={education} icon={BookOpen} title="Education" />
 
         <SkillsSection />
 
