@@ -51,7 +51,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       icon: <Github className="w-5 h-5" />,
       href: "https://github.com/yourusername",
       label: "GitHub",
-      color: "hover:text-gray-900 dark:hover:text-white",
+      color: "hover:text-blue-500",
     },
     {
       icon: <Linkedin className="w-5 h-5" />,
