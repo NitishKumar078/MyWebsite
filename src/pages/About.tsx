@@ -12,38 +12,21 @@ import { TimelineItem } from "../types";
 const experiences: TimelineItem[] = [
   {
     id: "exp1",
-    title: "Senior Software Developer",
-    company: "Tech Innovations Inc.",
-    period: "2021 - Present",
+    title: "Software Developer",
+    company: "Inventys Technologies PVT LTD",
+    period: "2023 - Present",
     description:
-      "Led development of cloud-native applications using React and Node.js. Mentored junior developers and implemented CI/CD pipelines.",
-  },
-  {
-    id: "exp3",
-    title: "Junior Developer",
-    company: "StartUp Hub",
-    period: "2018 - 2019",
-    description:
-      "Collaborated in agile team to deliver web applications. Implemented responsive designs and integrated third-party APIs.",
+      "I design intuitive user interfaces and frontend components to automate repetitive tasks, develop real-time monitoring tools, and enhance user workflows through innovative technologies.",
   },
 ];
 
 const education = [
   {
     id: "edu1",
-    title: "Master of Computer Science",
-    company: "Tech University",
-    period: "2016 - 2018",
-    description:
-      "Specialized in Software Engineering. Graduated with honors. Research focus on distributed systems.",
-  },
-  {
-    id: "edu2",
-    title: "Bachelor of Computer Science",
-    company: "State University",
-    period: "2012 - 2016",
-    description:
-      "Dean's List all semesters. Led programming club. Completed internship at major tech company.",
+    title: "Bachelor of Computer Applications",
+    company: "KLE Society Degree College",
+    period: "2019 - 2022",
+    description: "Specialized in modern software development with focus on",
   },
 ];
 
