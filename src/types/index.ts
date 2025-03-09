@@ -9,6 +9,28 @@ export interface Project {
   githubUrl: string;
 }
 
+export interface technologies {
+  id: string;
+  title: string;
+  image?: string;
+  toUrl: string;
+}
+
+export interface Topic {
+  id: string;
+  title: string;
+  content: string;
+}
+
+export interface Section {
+  sectionTitle: string;
+  topics: Topic[];
+}
+
+export interface TutorialData {
+  sections: Section[];
+}
+
 export interface BlogPost {
   id: string;
   title: string;

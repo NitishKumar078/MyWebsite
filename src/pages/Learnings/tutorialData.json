@@ -1,0 +1,34 @@
+{
+  "sections": [
+    {
+      "sectionTitle": "INTRODUCTION",
+      "topics": [
+        {
+          "id": "html-introduction",
+          "title": "HTML Introduction",
+          "content": "Today, I'm writing this tutorial to create a resource that will help you learn HTML..."
+        },
+        {
+          "id": "html-working",
+          "title": "HTML Working",
+          "content": "Explanation on how HTML works..."
+        }
+      ]
+    },
+    {
+      "sectionTitle": "HTML BASIC TAGS",
+      "topics": [
+        {
+          "id": "skeletal-tags",
+          "title": "Skeletal Tags",
+          "content": "Content for Skeletal Tags..."
+        },
+        {
+          "id": "heading-tags",
+          "title": "Heading Tags",
+          "content": "Content for Heading Tags..."
+        }
+      ]
+    }
+  ]
+}

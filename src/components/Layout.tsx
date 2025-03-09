@@ -8,7 +8,7 @@ import {
   Mail,
   Github,
   Linkedin,
-  Twitter,
+  // Twitter,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -16,6 +16,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isDark, setIsDark] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
   const location = useLocation();
 
   useEffect(() => {
@@ -26,45 +27,64 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   const toggleTheme = () => {
     setIsDark(!isDark);
     document.documentElement.classList.toggle("dark");
+  };
+
+  const formatTime = (date: Date) => {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds} ${ampm}`;
   };
 
   const navItems = [
     { path: "/", label: "Home" },
     { path: "/about", label: "About" },
     { path: "/projects", label: "Projects" },
+    { path: "/learnings", label: "Learnings" },
     { path: "/blog", label: "Blog" },
-    { path: "/resume", label: "Resume" },
-    { path: "/contact", label: "Contact" },
+    // { path: "/resume", label: "Resume" },
+    // { path: "/contact", label: "Contact" },
   ];
 
   const socialLinks = [
     {
       icon: <Mail className="w-5 h-5" />,
-      href: "mailto:your.email@example.com",
+      href: "mailto:nitishkumar562@.com",
       label: "Email",
       color: "hover:text-blue-500",
     },
     {
       icon: <Github className="w-5 h-5" />,
-      href: "https://github.com/yourusername",
+      href: "https://github.com/NitishKumar078",
       label: "GitHub",
       color: "hover:text-blue-500",
     },
     {
       icon: <Linkedin className="w-5 h-5" />,
-      href: "https://linkedin.com/in/yourusername",
+      href: "www.linkedin.com/in/nitish-kumar-m",
       label: "LinkedIn",
       color: "hover:text-blue-600",
     },
-    {
-      icon: <Twitter className="w-5 h-5" />,
-      href: "https://twitter.com/yourusername",
-      label: "Twitter",
-      color: "hover:text-blue-400",
-    },
+    // {
+    //   icon: <Twitter className="w-5 h-5" />,
+    //   href: "https://twitter.com/yourusername",
+    //   label: "Twitter",
+    //   color: "hover:text-blue-400",
+    // },
   ];
 
   return (
@@ -86,6 +106,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             >
               Nitish
             </Link>
+            <span className="bg-blue-50 px-4 rounded-full flex items-center align-middle shadow-sm hover:bg-blue-100 transition-all duration-300 transform hover:-translate-y-1 ml-2 text-xl font-bold text-gray-900">
+              {formatTime(currentTime)}
+            </span>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
@@ -126,24 +149,24 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           </nav>
 
           {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className="md:hidden absolute top-16 left-0 right-0 bg-white dark:bg-slate-900 shadow-lg">
-              <div className="flex flex-col p-4 space-y-4">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    className={`font-inter text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-primary transition-colors duration-200 ${
-                      location.pathname === item.path ? "text-primary" : ""
-                    }`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
+          <div
+            className={`md:hidden fixed bg-white dark:bg-slate-900 w-screen  ${
+              isMenuOpen ? "block" : "hidden"
+            }`}
+          >
+            <div className="flex flex-col p-4 space-y-4 sm:px-5 shadow-lg">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className="relative text-gray-700 block px-3 py-2 text-base font-medium  dark:text-slate-200 hover:text-primary dark:hover:text-primary transition-colors duration-200"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
             </div>
-          )}
+          </div>
         </div>
       </header>
 

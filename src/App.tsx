@@ -4,6 +4,9 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Projects from "./pages/Projects";
 import Blog from "./pages/Blog";
+import Contact from "./pages/contact";
+import Learnings from "./pages/Learnings/Learnings";
+import MinimalHTMLTutorialPage from "./pages/Learnings/MinimalHTMLTutorial";
 
 function App() {
   return (
@@ -14,6 +17,15 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/learnings" element={<Learnings />} />
+
+          {/* learnings pages */}
+          <Route path="/learnings/HTML" element={<MinimalHTMLTutorialPage />} />
+          <Route path="/learnings/CSS" element={<Learnings />} />
+          <Route path="/learnings/JavaScript" element={<Learnings />} />
+          <Route path="/learnings/React" element={<Learnings />} />
+          <Route path="/learnings/C#" element={<Learnings />} />
         </Routes>
       </Layout>
     </Router>
