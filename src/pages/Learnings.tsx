@@ -1,5 +1,5 @@
-import { technologies } from "../../types";
-import invoice from "../../assets/invoice.png";
+import { technologies } from "../types";
+import invoice from "../assets/invoice.png";
 import { Link } from "react-router-dom";
 
 const Learnings = () => {

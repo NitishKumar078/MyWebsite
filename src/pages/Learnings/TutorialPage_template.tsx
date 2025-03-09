@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import tutorialData from "./tutorialData.json";
+import tutorialData from "./HTMLData.json";
 import { TutorialData, Topic } from "../../types";
 
 const MinimalHTMLTutorialPage: React.FC = () => {

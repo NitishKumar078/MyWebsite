@@ -5,8 +5,8 @@ import About from "./pages/About";
 import Projects from "./pages/Projects";
 import Blog from "./pages/Blog";
 import Contact from "./pages/contact";
-import Learnings from "./pages/Learnings/Learnings";
-import MinimalHTMLTutorialPage from "./pages/Learnings/MinimalHTMLTutorial";
+import Learnings from "./pages/Learnings";
+import MinimalHTMLTutorialPage from "./pages/Learnings/TutorialPage_template";
 
 function App() {
   return (
