@@ -54,7 +54,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     { path: "/", label: "Home" },
     { path: "/about", label: "About" },
     { path: "/projects", label: "Projects" },
-    { path: "/learnings", label: "Learnings" },
+    // { path: "/learnings", label: "Learnings" },
     { path: "/blog", label: "Blog" },
     // { path: "/resume", label: "Resume" },
     // { path: "/contact", label: "Contact" },
@@ -111,30 +111,29 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             </span>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-5">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`font-inter text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-primary transition-colors duration-200 ${
+                  className={`font-inter px-2 text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-primary transition-colors duration-200 ${
                     location.pathname === item.path ? "text-primary" : ""
                   }`}
                 >
                   {item.label}
                 </Link>
               ))}
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200"
-              >
-                {isDark ? (
-                  <Sun className="w-5 h-5" />
-                ) : (
-                  <Moon className="w-5 h-5" />
-                )}
-              </button>
             </div>
-
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200"
+            >
+              {isDark ? (
+                <Sun className="w-5 h-5" />
+              ) : (
+                <Moon className="w-5 h-5" />
+              )}
+            </button>
             {/* Mobile Navigation */}
             <button
               className="md:hidden p-2"

@@ -5,14 +5,20 @@ import {
   Tag as TagIcon,
   SlidersHorizontal,
 } from "lucide-react";
-import { BlogFilter } from "../types/blog";
+import { BlogFilter, BlogPost } from "../types/blog";
 import { useBlogPosts } from "../hooks/useBlogPosts";
+import { useNavigate } from "react-router-dom";
 
 export default function Blog() {
+  const navigate = useNavigate();
   const [filter, setFilter] = useState<BlogFilter>({
     sortBy: "newest",
   });
   const { posts, loading, error } = useBlogPosts(filter);
+
+  const handleNavigation = (data: BlogPost) => {
+    navigate(`/blog/${data.title}`, { state: data });
+  };
 
   return (
     <div className="min-h-screen py-20">
@@ -48,7 +54,7 @@ export default function Blog() {
               onChange={(e) =>
                 setFilter({ ...filter, sortBy: e.target.value as any })
               }
-              className="px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm"
+              className="px-4 py-2 rounded-lg border dark:border-gray-700 dark:bg-slate-900 border-blue-500 backdrop-blur-sm"
             >
               <option value="newest">Newest First</option>
               <option value="oldest">Oldest First</option>
@@ -71,6 +77,7 @@ export default function Blog() {
               >
                 <h2 className="text-2xl font-bold mb-2">{post.title}</h2>
                 <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
+                  <span>created on :</span>
                   <span className="flex items-center gap-1">
                     <Calendar className="w-4 h-4" />
                     {new Date(post.created_at).toLocaleDateString()}
@@ -80,18 +87,20 @@ export default function Blog() {
                     {post.tags?.length || 0} tags
                   </span>
                 </div>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  {post.excerpt || post.content.slice(0, 200)}...
-                </p>
+
+                <div
+                  className="text-gray-600 dark:text-gray-400 mb-4"
+                  dangerouslySetInnerHTML={{
+                    __html: post.excerpt || post.content.slice(0, 200),
+                  }}
+                />
                 <div className="flex items-center gap-4">
-                  <button className="text-primary hover:underline">
+                  <button
+                    className="text-primary hover:underline"
+                    onClick={() => handleNavigation(post)}
+                  >
                     Read More
                   </button>
-                  {post.status === "draft" && (
-                    <span className="px-2 py-1 text-sm bg-yellow-100 text-yellow-800 rounded-full">
-                      Draft
-                    </span>
-                  )}
                 </div>
               </article>
             ))}

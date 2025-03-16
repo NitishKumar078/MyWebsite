@@ -19,10 +19,16 @@ export interface technologies {
 export interface Topic {
   id: string;
   title: string;
+  topic_contents?: topic_contents[];
+  // content?: string;
+}
+
+export interface topic_contents {
+  sub_heading: string;
   content: string;
 }
 
-export interface Section {
+interface Section {
   sectionTitle: string;
   topics: Topic[];
 }

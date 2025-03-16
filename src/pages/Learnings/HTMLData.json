@@ -6,12 +6,56 @@
         {
           "id": "html-introduction",
           "title": "HTML Introduction",
-          "content": "Today, I'm writing this tutorial to create a resource that will help you learn HTML..."
+          "topic_contents": [
+            {
+              "sub_heading": "What is HTML?",
+              "content": "HTML (HyperText Markup Language) was created by Tim Berners-Lee in 1991 as a standard for creating web pages. It's a markup language used to structure content on the web, defining elements like headings, paragraphs, links, and images. HTML forms the backbone of web content. In layman's terms, HTML is like the skeleton of a website. It's a set of instructions that tells a web browser how to display text, images, videos, and other elements on a webpage. Think of it as the building blocks that create the structure and look of a website, similar to how bricks and mortar are used to build a house."
+            },
+            {
+              "sub_heading": "Features of HTML",
+              "content": "HTML (HyperText Markup Language) was created by Tim Berners-Lee in 1991 as a standard for creating web pages. It's a markup language used to structure content on the web, defining elements like headings, paragraphs, links, and images. HTML forms the backbone of web content. In layman's terms, HTML is like the skeleton of a website. It's a set of instructions that tells a web browser how to display text, images, videos, and other elements on a webpage. Think of it as the building blocks that create the structure and look of a website, similar to how bricks and mortar are used to build a house."
+            },
+            {
+              "sub_heading": "Why the Term HyperText & Markup Language?",
+              "content": "HTML (HyperText Markup Language) was created by Tim Berners-Lee in 1991 as a standard for creating web pages. It's a markup language used to structure content on the web, defining elements like headings, paragraphs, links, and images. HTML forms the backbone of web content. In layman's terms, HTML is like the skeleton of a website. It's a set of instructions that tells a web browser how to display text, images, videos, and other elements on a webpage. Think of it as the building blocks that create the structure and look of a website, similar to how bricks and mortar are used to build a house."
+            }
+          ]
         },
         {
           "id": "html-working",
           "title": "HTML Working",
-          "content": "Explanation on how HTML works..."
+          "topic_contents": [
+            {
+              "sub_heading": "How do websites work?",
+              "content": "When we want to access any information on the internet, we search for it using a web browser. The web browser retrieves the content from web servers, where it is stored in the form of HTML documents. \n An HTML document is created by writing code with specific tags in a code editor of your choice. The document is then saved with the '.html' extension. Once saved, the browser interprets the HTML document, reads it, and renders the web page."
+            },
+            {
+              "sub_heading": "What is an HTML Document?",
+              "content": "An HTML document is a text document saved with the '.html' or '.htm' extension, containing text and specific tags enclosed in '< >'. These tags provide the necessary instructions for configuring the web page. The tags themselves are standardized and fixed. The structure of an HTML document will be explained later in this HTML tutorial."
+            },
+            {
+              "sub_heading": "What is a Rendered Page?",
+              "content": "The rendered page is the output screen of our HTML Document which is the page displayed on the browser.  "
+            }
+          ]
+        },
+        {
+          "id": "HTML Tags",
+          "title": "HTML Tags",
+          "topic_contents": [
+            {
+              "sub_heading": "Commonly used tags in HTML",
+              "content": "Here are some commonly used tags in HTML. These are the only tags used 70% of the time"
+            },
+            {
+              "sub_heading": "Document Structure Tags",
+              "content": " * . <!DOCTYPE html>: Specifies the document type. * . <html>: Encloses the entire HTML document. \n * . <head>: Contains meta-information and links to scripts and stylesheets. \n * . <body>: Contains the content of the web page."
+            },
+            {
+              "sub_heading": "What is a Rendered Page?",
+              "content": "The rendered page is the output screen of our HTML Document which is the page displayed on the browser.  "
+            }
+          ]
         }
       ]
     },

@@ -81,7 +81,7 @@ const MinimalHTMLTutorialPage: React.FC = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8 max-w-4xl mx-auto">
+      <main className="flex-1 p-8 max-w-8xl mx-auto">
         <div className="flex justify-between mb-8">
           <button
             onClick={handlePrev}
@@ -98,9 +98,13 @@ const MinimalHTMLTutorialPage: React.FC = () => {
             Next »
           </button>
         </div>
-
-        <h1 className="text-4xl font-bold mb-6">{currentTopic?.title}</h1>
-        <div className="mb-6 leading-7">{currentTopic?.content}</div>
+        <h1 className="text-5xl font-bold mb-6">{currentTopic?.title}</h1>
+        {currentTopic?.topic_contents?.map((content, index) => (
+          <div key={index}>
+            <h2 className="text-3xl font-bold mb-6">{content.sub_heading}</h2>
+            <div className="mb-6 leading-7">{content.content}</div>
+          </div>
+        ))}
       </main>
     </div>
   );
