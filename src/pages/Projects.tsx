@@ -16,6 +16,7 @@ const projects: Project[] = [
     image: invoice,
     technologies: ["React", "TypeScript", "Tailwind CSS", "Tauri", "Rust"],
     category: ["Web"],
+    demoUrl: "https://invoice-book.vercel.app/",
     githubUrl: "https://github.com/NitishKumar078/Invoice-Book",
   },
   {
