@@ -26,7 +26,7 @@ const projects: Project[] = [
       "Capture real-time images and monitor keyboard and mouse actions for specific windows on a PC.",
     technologies: [".Net", "C#", "UIAutomation", "WPF"],
     image: spy,
-    category: ["Web"],
+    category: ["Window"],
     githubUrl: "https://github.com/NitishKumar078/Spy",
   },
   {
@@ -62,7 +62,7 @@ const projects: Project[] = [
   },
 ];
 
-const categories = ["All", "Web", "Chrome Extention", "AI", "Design"];
+const categories = ["All", "Web", "Chrome Extention", "ML/AI", "Window"];
 
 export default function Projects() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -109,10 +109,10 @@ export default function Projects() {
             />
           </div>
 
-          <div className="relative md:w-48">
+          <div className="relative md:w-48 ">
             <button
               onClick={() => setIsFilterOpen(!isFilterOpen)}
-              className="overflow-ellipsis w-fit px-1 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm hover:border-primary dark:hover:border-primary transition-colors duration-200 flex items-center justify-between"
+              className="overflow-ellipsis gap-2 w-fit px-1 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm hover:border-primary dark:hover:border-primary transition-colors duration-200 flex items-center justify-between"
             >
               <span>{selectedCategory}</span>
               <Filter className="w-4 h-4" />
