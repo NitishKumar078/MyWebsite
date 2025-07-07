@@ -1,2 +1,87 @@
-@tailwind utilities;
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #1f2937; /* gray-800 for better contrast */
+  --primary: #2563eb;
+  --secondary: #1e293b;
+  --accent: #38bdf8;
+
+  /* Custom spacing variables */
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-48: 48px;
+
+  /* Font family variables */
+  --font-inter: "Inter", sans-serif;
+  --font-jetbrains: "JetBrains Mono", monospace;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+
+  /* Custom spacing */
+  --spacing-16: var(--spacing-16);
+  --spacing-24: var(--spacing-24);
+  --spacing-32: var(--spacing-32);
+  --spacing-48: var(--spacing-48);
+
+  /* Font families */
+  --font-inter: var(--font-inter);
+  --font-jetbrains: var(--font-jetbrains);
+}
+
+/* Dark mode with class-based approach */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #f3f4f6; /* gray-100 for better readability */
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter); /* Using Inter as defined in config */
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Typography enhancements matching your config */
+/* a {
+  color: var(--primary);
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: color-mix(in srgb, var(--primary) 90%, transparent);
+} */
+
+code {
+  font-family: var(--font-jetbrains);
+  background-color: color-mix(in srgb, var(--foreground) 10%, transparent);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 0.875em;
+}
+
+/* Custom utility classes using your spacing */
+.spacing-16 {
+  padding: var(--spacing-16);
+}
+
+.spacing-24 {
+  padding: var(--spacing-24);
+}
+
+.spacing-32 {
+  padding: var(--spacing-32);
+}
+
+.spacing-48 {
+  padding: var(--spacing-48);
+}
