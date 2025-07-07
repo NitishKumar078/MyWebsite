@@ -34,6 +34,7 @@ export default function RootLayout({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [hasMounted, setHasMounted] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -48,6 +49,7 @@ export default function RootLayout({
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
+    setHasMounted(true);
     return () => clearInterval(timer);
   }, []);
 
@@ -128,7 +130,7 @@ export default function RootLayout({
                   Nitish
                 </Link>
                 <span className="bg-blue-50 px-4 rounded-full flex items-center align-middle shadow-sm hover:bg-blue-100 transition-all duration-300 transform hover:-translate-y-1 ml-2 text-xl font-bold text-gray-900">
-                  {formatTime(currentTime)}
+                  {hasMounted ? formatTime(currentTime) : "00:00:00 AM"}
                 </span>
 
                 {/* Desktop Navigation */}
