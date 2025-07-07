@@ -16,7 +16,7 @@ const experiences: TimelineItem[] = [
     company: "Inventys Technologies PVT LTD",
     period: "2023 - Present",
     description:
-      "I design intuitive user interfaces and frontend components to automate repetitive tasks, develop real-time monitoring tools, and enhance user workflows through innovative technologies.",
+      "At Inventys, I create easy-to-use software that helps people work faster and smarter. My main job is building simple and helpful computer programs that automate boring tasks. I work with a team to design tools that save time and make daily work easier, using modern technology to improve how things get done in the office.",
   },
 ];
 
@@ -26,17 +26,34 @@ const education = [
     title: "Bachelor of Computer Applications",
     company: "KLE Society Degree College",
     period: "2019 - 2022",
-    description: "Specialized in modern software development with focus on",
+    description:
+      "During my college days, I started with the basics of coding and gradually built a strong foundation in programming. Exploring various technologies and working on projects sparked my passion for software development, helping me grow and develop a keen interest in coding.",
   },
 ];
 
 const skills = [
   {
-    category: "Frontend",
-    items: ["React", "TypeScript", "Tailwind CSS", "Next.js"],
+    category: "Programming Languages",
+    items: ["Python"],
   },
-  { category: "Backend", items: ["Node.js", "Python", "PostgreSQL", "Redis"] },
-  { category: "DevOps", items: ["Docker", "AWS", "CI/CD", "Kubernetes"] },
+  {
+    category: "Frontend",
+    items: [
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Next.js",
+      "electron js",
+      "Redux",
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "Tauri",
+    ],
+  },
+  { category: "Backend", items: ["Node.js", "PostgreSQL"] },
+  { category: "Other", items: ["Docker", "git", "github", "jira"] },
+
   { category: "Tools", items: ["Git", "VS Code", "Figma", "Postman"] },
 ];
 

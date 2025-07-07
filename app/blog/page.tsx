@@ -33,7 +33,7 @@ export default function Blog() {
                 placeholder="Search posts..."
                 value={filter.search || ""}
                 onChange={(e) =>
-                  setFilter({ ...filter, search: e.target.value || undefined })
+                  setFilter({ ...filter, search: e.target.value })
                 }
                 className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm"
               />
@@ -51,10 +51,17 @@ export default function Blog() {
 
           <div className="flex flex-wrap gap-4">
             <select
-              value={filter.sortBy}
-              onChange={(e) =>
-                setFilter({ ...filter, sortBy: e.target.value as any })
-              }
+              value={filter.sortBy || ""}
+              onChange={(e) => {
+                const value = e.target.value;
+                setFilter({
+                  ...filter,
+                  sortBy:
+                    value === ""
+                      ? undefined
+                      : (value as "newest" | "oldest" | "popular"),
+                });
+              }}
               className="px-4 py-2 rounded-lg border dark:border-gray-700 dark:bg-slate-900 border-blue-500 backdrop-blur-sm"
             >
               <option value="newest">Newest First</option>
