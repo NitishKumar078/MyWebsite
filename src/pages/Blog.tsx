@@ -5,7 +5,7 @@ import {
   Tag as TagIcon,
   SlidersHorizontal,
 } from "lucide-react";
-import { BlogFilter, BlogPost } from "../types/blog";
+import { BlogFilter, BlogPost } from "../lib/FormatData";
 import { useBlogPosts } from "../hooks/useBlogPosts";
 import { useNavigate } from "react-router-dom";
 

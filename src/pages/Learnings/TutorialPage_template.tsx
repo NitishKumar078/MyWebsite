@@ -1,6 +1,6 @@
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import tutorialData from "./HTMLData.json";
-import { TutorialData, Topic } from "../../types";
+import { TutorialData, Topic } from "../../lib/FormatData";
 
 const MinimalHTMLTutorialPage: React.FC = () => {
   // Cast the imported JSON as our defined type.

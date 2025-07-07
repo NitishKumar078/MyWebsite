@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
-import { BlogPost, BlogFilter } from "../types/blog";
+import { BlogPost, BlogFilter } from "@/lib/FormatData";
 
 export const useBlogPosts = (filter: BlogFilter) => {
   const [posts, setPosts] = useState<BlogPost[]>([]);

@@ -1,4 +1,4 @@
-import { technologies } from "../types";
+import { technologies } from "../lib/FormatData";
 import invoice from "../assets/invoice.png";
 import { Link } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { Search, ExternalLink, Github, Filter } from "lucide-react";
-import { Project } from "../types";
+import { Project } from "../lib/FormatData";
 import invoice from "../assets/invoice.png";
 import spy from "../assets/spy.png";
 import TextExt from "../assets/TextExt.png";

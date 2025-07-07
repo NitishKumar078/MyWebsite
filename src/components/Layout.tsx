@@ -1,4 +1,3 @@
-import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Sun,
@@ -111,7 +110,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             </span>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-5">
+            <div className="hidden md:flex items-center space-x-5 gap-2 px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800">
               {navItems.map((item) => (
                 <Link
                   key={item.path}

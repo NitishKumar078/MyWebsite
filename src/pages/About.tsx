@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Calendar,
   Award,
@@ -7,7 +6,7 @@ import {
   ChevronRight,
   Star,
 } from "lucide-react";
-import { TimelineItem } from "../types";
+import { TimelineItem } from "../lib/FormatData";
 
 const experiences: TimelineItem[] = [
   {
