@@ -16,7 +16,14 @@ type BlogPostContent =
       items: string[];
       format: "numbered" | "bulleted";
     }
-  | { type: "image"; src: string; alt?: string; caption?: string };
+  | {
+      type: "image";
+      src: string;
+      alt?: string;
+      caption?: string;
+      width?: number;
+      height?: number;
+    };
 
 export interface BlogTag {
   name: string;

@@ -2,6 +2,7 @@
 
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useGetPost } from "@/app/hooks/useGetPost";
 
 export default function BlogPostPage() {
@@ -101,22 +102,26 @@ export default function BlogPostPage() {
                   <div key={index} className="image-container my-4">
                     {block.caption ? (
                       <figure className="image-figure">
-                        <img
+                        <Image
                           src={block.src}
-                          alt={block.alt || block.caption}
+                          alt={block.alt || block.caption || "Content image"}
                           className="content-image rounded shadow-md"
                           loading="lazy"
+                          width={block.width || 600}
+                          height={block.height || 400}
                         />
                         <figcaption className="image-caption text-sm text-gray-500 mt-2 text-center">
                           {block.caption}
                         </figcaption>
                       </figure>
                     ) : (
-                      <img
+                      <Image
                         src={block.src}
                         alt={block.alt || "Content image"}
                         className="content-image rounded shadow-md"
                         loading="lazy"
+                        width={block.width || 600}
+                        height={block.height || 400}
                       />
                     )}
                   </div>
