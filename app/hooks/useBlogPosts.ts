@@ -1,79 +1,102 @@
-import { useState, useEffect } from "react";
-import { supabase } from "../lib/supabase";
+import { useState, useEffect, useMemo } from "react";
+import { supabase } from "@/app/SupaBase/serverCli";
 import { BlogPost, BlogFilter } from "../types/blog";
 
+// Global cache for blog posts
+let allPosts: BlogPost[] = [];
+let hasFetched = false;
+
+const fetchAllPosts = async (): Promise<BlogPost[]> => {
+  const { data, error } = await supabase
+    .from("Post")
+    .select("id,title,created_at,tags,content");
+
+  if (error) throw error;
+  return data || [];
+};
+
+/**
+ * A pure function to filter an array of blog posts based on filter criteria.
+ */
+const applyFilters = (posts: BlogPost[], filter: BlogFilter): BlogPost[] => {
+  let filtered = [...posts];
+
+  if (!filter) return filtered;
+
+  // Filter by search
+  if (filter.search) {
+    const term = filter.search.toLowerCase();
+    filtered = filtered.filter((post) =>
+      filter.searchBy === "tags"
+        ? post.tags?.toLowerCase().includes(term)
+        : post.title.toLowerCase().includes(term)
+    );
+  }
+
+  // Sort
+  if (filter.sortBy) {
+    filtered.sort((a, b) => {
+      switch (filter.sortBy) {
+        case "newest":
+          return (
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          );
+        case "oldest":
+          return (
+            new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+          );
+        case "popular":
+          return (
+            (b.tags?.split(",").length || 0) - (a.tags?.split(",").length || 0)
+          );
+        default:
+          return 0;
+      }
+    });
+  }
+
+  return filtered;
+};
+
+/**
+ * Custom hook to fetch blog posts only once and apply filters locally.
+ */
 export const useBlogPosts = (filter: BlogFilter) => {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [allData, setAllData] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const loadPosts = async () => {
+      setLoading(true);
+      setError(null);
+
       try {
-        setLoading(true);
-        let query = supabase.from("blog_posts").select(
-          `
-            *,
-            tags:blog_posts_tags(
-              tag:blog_tags(*)
-            )
-          `,
-          { count: "exact" }
-        );
-
-        // Apply filters
-        if (filter.search) {
-          query = query.textSearch("search_vector", filter.search);
+        if (!hasFetched) {
+          const fetched = await fetchAllPosts();
+          allPosts = fetched;
+          hasFetched = true;
         }
-
-        if (filter.tags?.length) {
-          query = query.contains("tags.tag.id", filter.tags);
-        }
-
-        if (filter.dateRange?.start) {
-          query = query.gte("created_at", filter.dateRange.start.toISOString());
-        }
-
-        if (filter.dateRange?.end) {
-          query = query.lte("created_at", filter.dateRange.end.toISOString());
-        }
-
-        if (filter.status) {
-          query = query.eq("status", filter.status);
-        }
-
-        // Apply sorting
-        switch (filter.sortBy) {
-          case "newest":
-            query = query.order("created_at", { ascending: false });
-            break;
-          case "oldest":
-            query = query.order("created_at", { ascending: true });
-            break;
-          case "popular":
-            query = query.order("view_count", { ascending: false });
-            break;
-          default:
-            query = query.order("created_at", { ascending: false });
-        }
-
-        const { data, error, count } = await query;
-
-        if (error) throw error;
-
-        setPosts(data as BlogPost[]);
-        if (count !== null) setTotalCount(count);
+        setAllData(allPosts);
       } catch (err) {
-        console.error("Error fetching posts:", err);
-        setError(err instanceof Error ? err.message : "Failed to fetch posts");
+        setError(err instanceof Error ? err.message : "Failed to load posts");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchPosts();
-  }, [filter]);
+    loadPosts();
+  }, []);
 
-  return { posts, loading, error, totalCount };
+  const filteredPosts = useMemo(
+    () => applyFilters(allData, filter),
+    [filter, allData]
+  );
+
+  return {
+    posts: filteredPosts,
+    totalCount: filteredPosts.length,
+    loading,
+    error,
+  };
 };

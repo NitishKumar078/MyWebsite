@@ -1,34 +1,37 @@
+"use client";
+
+import { useParams } from "next/navigation";
 import Link from "next/link";
+import { useGetPost } from "@/app/hooks/useGetPost";
 
-// Dummy function: Replace with your real data fetching logic
-async function getBlogPost(slug: string) {
-  // Example: fetch from your database or API
-  // const res = await fetch(`/api/blog/${slug}`);
-  // return await res.json();
+export default function BlogPostPage() {
+  const params = useParams();
+  const slug = typeof params.slug === "string" ? params.slug : null;
+  const { post, loading, error } = useGetPost(slug);
 
-  // Placeholder data for demonstration
-  if (slug === "example-post") {
-    return {
-      title: "Example Post",
-      created_at: "2024-06-01T12:00:00Z",
-      content: "<p>This is an example blog post content.</p>",
-    };
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div>Loading...</div>
+      </div>
+    );
   }
-  return null;
-}
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const post = await getBlogPost(params?.slug);
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div>Error: {error}</div>
+      </div>
+    );
+  }
 
   if (!post) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div>
-          <h1 className="text-2xl font-bold mb-4">Post not found</h1>
+          <h1 className="text-2xl font-bold mb-4">
+            Something went wrong. <br /> Post not found
+          </h1>
           <Link href="/blog" className="text-blue-500 underline">
             Back to Blog
           </Link>
@@ -48,14 +51,82 @@ export default async function BlogPostPage({
             Back
           </Link>
           <span className="text-sm text-gray-600 dark:text-gray-400">
-            created at : {new Date(post.created_at).toLocaleDateString()}
+            Created at: {new Date(post.created_at).toLocaleDateString()}
           </span>
         </div>
+
         <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
-        <div
-          className="prose dark:prose-dark"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
+
+        <div className="space-y-4">
+          {post.content.map((block, index) => {
+            switch (block.type) {
+              case "paragraph":
+                return (
+                  <p
+                    key={index}
+                    className="content-paragraph text-base leading-relaxed"
+                  >
+                    {block.text}
+                  </p>
+                );
+
+              case "points": {
+                const ListTag = block.format === "numbered" ? "ol" : "ul";
+                return (
+                  <div key={index}>
+                    {block.heading && (
+                      <h3 className="points-heading text-lg font-semibold mb-2">
+                        {block.heading}
+                      </h3>
+                    )}
+                    <ListTag
+                      className={`content-points list-inside ${
+                        block.format === "numbered"
+                          ? "list-decimal"
+                          : "list-disc"
+                      } pl-4`}
+                    >
+                      {block.items.map((item, i) => (
+                        <li key={i} className="point-item mb-1">
+                          {item}
+                        </li>
+                      ))}
+                    </ListTag>
+                  </div>
+                );
+              }
+
+              case "image":
+                return (
+                  <div key={index} className="image-container my-4">
+                    {block.caption ? (
+                      <figure className="image-figure">
+                        <img
+                          src={block.src}
+                          alt={block.alt || block.caption}
+                          className="content-image rounded shadow-md"
+                          loading="lazy"
+                        />
+                        <figcaption className="image-caption text-sm text-gray-500 mt-2 text-center">
+                          {block.caption}
+                        </figcaption>
+                      </figure>
+                    ) : (
+                      <img
+                        src={block.src}
+                        alt={block.alt || "Content image"}
+                        className="content-image rounded shadow-md"
+                        loading="lazy"
+                      />
+                    )}
+                  </div>
+                );
+
+              default:
+                return null;
+            }
+          })}
+        </div>
       </div>
     </div>
   );
