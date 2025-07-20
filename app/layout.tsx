@@ -134,7 +134,7 @@ export default function RootLayout({
                 </span>
 
                 {/* Desktop Navigation */}
-                <div className="hidden md:flex items-center space-x-5 gap-2 px-4 py-2 rounded-s-4xl bg-slate-100 dark:bg-slate-800">
+                <div className="hidden md:flex items-center space-x-5 gap-2 px-4 py-2 rounded-4xl bg-slate-100 dark:bg-slate-800">
                   {navItems.map((item) => (
                     <Link
                       key={item.path}
