@@ -2,11 +2,11 @@
 import { useState, useMemo } from "react";
 import { Search, ExternalLink, Github, Filter } from "lucide-react";
 import { Project } from "../types";
-import invoice from "@/assets/invoice.png";
-import spy from "@/assets/spy.png";
-import TextExt from "@/assets/TextExt.png";
-import AudioProcessing from "@/assets/AudioProcessing.png";
-import pathfinder from "@/assets/pathfinder.png";
+import invoice from "@/app/assets/invoice.png";
+import spy from "@/app/assets/spy.png";
+import TextExt from "@/app/assets/TextExt.png";
+import AudioProcessing from "@/app/assets/AudioProcessing.png";
+import pathfinder from "@/app/assets/pathfinder.png";
 
 const projects: Project[] = [
   {
