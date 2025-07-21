@@ -33,29 +33,47 @@ export default function RootLayout({
   const [isDark, setIsDark] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [hasMounted, setHasMounted] = useState(false);
   const pathname = usePathname();
 
+  // On mount, set hasMounted and sync theme from localStorage if available
   useEffect(() => {
+    setHasMounted(true);
+
+    const savedTheme =
+      typeof window !== "undefined" ? localStorage.getItem("theme") : null;
+    if (savedTheme === "dark") setIsDark(true);
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
-  useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
-    setHasMounted(true);
-    return () => clearInterval(timer);
+
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
+  // Theme toggling effect and persist to localStorage
+  useEffect(() => {
+    if (!hasMounted) return;
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDark, hasMounted]);
+
   const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.documentElement.classList.toggle("dark");
+    setIsDark((prev) => !prev);
   };
 
   const formatTime = (date: Date) => {
@@ -111,9 +129,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div
-          className={`min-h-screen bg-white dark:bg-slate-900 transition-colors duration-200`}
-        >
+        <div className="min-h-screen bg-white dark:bg-slate-900 transition-colors duration-200">
           <header
             className={`fixed w-full z-50 transition-all duration-200 ${
               isScrolled
@@ -129,9 +145,9 @@ export default function RootLayout({
                 >
                   Nitish
                 </Link>
-                <span className="bg-blue-50 px-4 rounded-full flex items-center align-middle shadow-sm hover:bg-blue-100 transition-all duration-300 transform hover:-translate-y-1 ml-2 text-xl font-bold text-gray-900">
-                  {hasMounted ? formatTime(currentTime) : "00:00:00 AM"}
-                </span>
+                {hasMounted && currentTime && (
+                  <span>{formatTime(currentTime)}</span>
+                )}
 
                 {/* Desktop Navigation */}
                 <div className="hidden md:flex items-center space-x-5 gap-2 px-4 py-2 rounded-4xl bg-slate-100 dark:bg-slate-800">
@@ -169,10 +185,9 @@ export default function RootLayout({
                   )}
                 </button>
               </nav>
-
               {/* Mobile Menu */}
               <div
-                className={`md:hidden fixed bg-white dark:bg-slate-900 w-screen  ${
+                className={`md:hidden fixed bg-white dark:bg-slate-900 w-screen ${
                   isMenuOpen ? "block" : "hidden"
                 }`}
               >
@@ -207,7 +222,7 @@ export default function RootLayout({
                   aria-label={link.label}
                 >
                   {link.icon}
-                  <span className="fixed right-16 py-1  px-2 rounded bg-white dark:bg-slate-800 text-sm font-medium shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                  <span className="fixed right-16 py-1 px-2 rounded bg-white dark:bg-slate-800 text-sm font-medium shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                     {link.label}
                   </span>
                 </a>
@@ -219,7 +234,10 @@ export default function RootLayout({
           <footer className="relative mt-auto">
             <div className="mt-8 pt-6 border-t border-slate-200/20 dark:border-slate-700/20 text-center">
               <p className="text-slate-600 dark:text-slate-400">
-                © {new Date().getFullYear()} Nitish. All rights reserved.
+                <span>
+                  © {hasMounted ? new Date().getFullYear() : ""} Nitish. All
+                  rights reserved..
+                </span>
               </p>
             </div>
           </footer>
