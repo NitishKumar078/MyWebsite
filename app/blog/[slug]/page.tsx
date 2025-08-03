@@ -40,6 +40,7 @@ export default function BlogPostPage() {
       </div>
     );
   }
+  console.log(post)
 
   return (
     <div className="min-h-screen py-20 px-3">
@@ -51,6 +52,9 @@ export default function BlogPostPage() {
           >
             Back
           </Link>
+          <span className="text-sm text-gray-600 dark:text-gray-400">
+            tags : {post?.tags?.replaceAll("\"", "") || "[]"}
+          </span>
           <span className="text-sm text-gray-600 dark:text-gray-400">
             Created at: {new Date(post.created_at).toLocaleDateString()}
           </span>
@@ -81,11 +85,10 @@ export default function BlogPostPage() {
                       </h3>
                     )}
                     <ListTag
-                      className={`content-points list-inside ${
-                        block.format === "numbered"
-                          ? "list-decimal"
-                          : "list-disc"
-                      } pl-4`}
+                      className={`content-points list-inside ${block.format === "numbered"
+                        ? "list-decimal"
+                        : "list-disc"
+                        } pl-4`}
                     >
                       {block.items.map((item, i) => (
                         <li key={i} className="point-item mb-1">

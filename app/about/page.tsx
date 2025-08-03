@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import {
   Calendar,
@@ -8,6 +9,13 @@ import {
   Star,
 } from "lucide-react";
 import { TimelineItem } from "../types";
+import { motion } from "framer-motion";
+
+const pageVariants = {
+  initial: { x: "100%", opacity: 0 },
+  animate: { x: 0, opacity: 1 },
+  exit: { x: "-100%", opacity: 0 },
+};
 
 const experiences: TimelineItem[] = [
   {
@@ -154,29 +162,38 @@ const CertificationsSection = () => (
 
 export default function About() {
   return (
-    <div className="min-h-screen py-20">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">About Me</h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Passionate software developer with expertise in full-stack
-            development, cloud architecture, and a track record of delivering
-            innovative solutions.
-          </p>
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      variants={pageVariants}
+      className="page"
+    >
+      <div className="min-h-screen py-20">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-bold mb-4">About Me</h1>
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Passionate software developer with expertise in full-stack
+              development, cloud architecture, and a track record of delivering
+              innovative solutions.
+            </p>
+          </div>
+
+          <TimelineSection
+            items={experiences}
+            icon={Briefcase}
+            title="Professional Experience"
+          />
+
+          <TimelineSection items={education} icon={BookOpen} title="Education" />
+
+          <SkillsSection />
+
+          <CertificationsSection />
         </div>
-
-        <TimelineSection
-          items={experiences}
-          icon={Briefcase}
-          title="Professional Experience"
-        />
-
-        <TimelineSection items={education} icon={BookOpen} title="Education" />
-
-        <SkillsSection />
-
-        <CertificationsSection />
       </div>
-    </div>
+    </motion.div>
   );
 }

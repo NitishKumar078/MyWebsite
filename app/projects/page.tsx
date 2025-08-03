@@ -7,6 +7,8 @@ import spy from "@/app/assets/spy.png";
 import TextExt from "@/app/assets/TextExt.png";
 import AudioProcessing from "@/app/assets/AudioProcessing.png";
 import pathfinder from "@/app/assets/pathfinder.png";
+import { motion } from "framer-motion";
+
 
 const projects: Project[] = [
   {
@@ -63,6 +65,12 @@ const projects: Project[] = [
   },
 ];
 
+const pageVariants = {
+  initial: { y: "-100%", opacity: 0 },
+  animate: { y: 0, opacity: 1 },
+  exit: { y: "100%", opacity: 0 },
+};
+
 const categories = ["All", "Web", "Chrome Extention", "AI"];
 
 export default function Projects() {
@@ -88,118 +96,126 @@ export default function Projects() {
   }, [searchQuery, selectedCategory]);
 
   return (
-    <div className="min-h-screen py-20">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">My Projects</h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            A collection of my work showcasing web development, mobile
-            applications, and design projects.
-          </p>
-        </div>
-
-        <div className="flex flex-col md:flex-row gap-2 mb-8 mr-10">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search projects..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm focus:ring-2 focus:ring-primary focus:border-transparent"
-            />
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={{ duration: 1, ease: "backInOut" }}
+      variants={pageVariants}
+      className="page"
+    >
+      <div className="min-h-screen py-20">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-bold mb-4">My Projects</h1>
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              A collection of my work showcasing web development, mobile
+              applications, and design projects.
+            </p>
           </div>
 
-          <div className="relative md:w-48">
-            <button
-              onClick={() => setIsFilterOpen(!isFilterOpen)}
-              className="overflow-ellipsis gap-2 w-fit px-1 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm hover:border-primary dark:hover:border-primary transition-colors duration-200 flex items-center justify-between"
-            >
-              <span>{selectedCategory}</span>
-              <Filter className="w-4 h-4" />
-            </button>
+          <div className="flex flex-col md:flex-row gap-2 mb-8 mr-10">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search projects..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm focus:ring-2 focus:ring-primary focus:border-transparent"
+              />
+            </div>
 
-            {isFilterOpen && (
-              <div className="absolute top-full left-0 right-0  py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-slate-800 shadow-lg z-10 overflow-ellipsis w-fit">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => {
-                      setSelectedCategory(category);
-                      setIsFilterOpen(false);
-                    }}
-                    className={`w-full px-3 py-2 text-left hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-200 ${
-                      selectedCategory === category ? "text-primary" : ""
-                    }`}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+            <div className="relative md:w-48">
+              <button
+                onClick={() => setIsFilterOpen(!isFilterOpen)}
+                className="overflow-ellipsis gap-2 w-fit px-1 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm hover:border-primary dark:hover:border-primary transition-colors duration-200 flex items-center justify-between"
+              >
+                <span>{selectedCategory}</span>
+                <Filter className="w-4 h-4" />
+              </button>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              className="group relative rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm hover:border-primary dark:hover:border-primary transition-all duration-300 hover:scale-[1.02]"
-            >
-              <div className="aspect-video overflow-hidden">
-                <img
-                  src={
-                    typeof project.image === "string"
-                      ? project.image
-                      : project.image.src
-                  }
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-              </div>
-
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-1 text-sm rounded-full bg-primary/10 text-primary"
+              {isFilterOpen && (
+                <div className="absolute top-full left-0 right-0  py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-slate-800 shadow-lg z-10 overflow-ellipsis w-fit">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => {
+                        setSelectedCategory(category);
+                        setIsFilterOpen(false);
+                      }}
+                      className={`w-full px-3 py-2 text-left hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-200 ${selectedCategory === category ? "text-primary" : ""
+                        }`}
                     >
-                      {tech}
-                    </span>
+                      {category}
+                    </button>
                   ))}
                 </div>
-                <div className="flex gap-4">
-                  {project.demoUrl && (
+              )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProjects.map((project) => (
+              <div
+                key={project.id}
+                className="group relative rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm hover:border-primary dark:hover:border-primary transition-all duration-300 hover:scale-[1.02]"
+              >
+                <div className="aspect-video overflow-hidden">
+                  <img
+                    src={
+                      typeof project.image === "string"
+                        ? project.image
+                        : project.image.src
+                    }
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                </div>
+
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2 py-1 text-sm rounded-full bg-primary/10 text-primary"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex gap-4">
+                    {project.demoUrl && (
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors duration-200"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Demo
+                      </a>
+                    )}
                     <a
-                      href={project.demoUrl}
+                      href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors duration-200"
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary transition-colors duration-200"
                     >
-                      <ExternalLink className="w-4 h-4" />
-                      Demo
+                      <Github className="w-4 h-4" />
+                      Code
                     </a>
-                  )}
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary transition-colors duration-200"
-                  >
-                    <Github className="w-4 h-4" />
-                    Code
-                  </a>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

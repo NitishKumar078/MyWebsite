@@ -2,6 +2,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import React, { useState, useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -33,7 +34,6 @@ export default function RootLayout({
   const [isDark, setIsDark] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [hasMounted, setHasMounted] = useState(false);
   const pathname = usePathname();
 
@@ -50,12 +50,9 @@ export default function RootLayout({
     };
     window.addEventListener("scroll", handleScroll);
 
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
+
 
     return () => {
-      clearInterval(timer);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
@@ -76,16 +73,6 @@ export default function RootLayout({
     setIsDark((prev) => !prev);
   };
 
-  const formatTime = (date: Date) => {
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
-    const ampm = hours >= 12 ? "PM" : "AM";
-    const formattedHours = hours % 12 || 12;
-    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
-    return `${formattedHours}:${formattedMinutes}:${formattedSeconds} ${ampm}`;
-  };
 
   const navItems = [
     { path: "/", label: "Home" },
@@ -131,11 +118,10 @@ export default function RootLayout({
       >
         <div className="min-h-screen bg-white dark:bg-slate-900 transition-colors duration-200">
           <header
-            className={`fixed w-full z-50 transition-all duration-200 ${
-              isScrolled
-                ? "bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-md"
-                : ""
-            }`}
+            className={`fixed w-full z-50 transition-all duration-200 ${isScrolled
+              ? "bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-md"
+              : ""
+              }`}
           >
             <div className="mx-auto px-6">
               <nav className="flex items-center justify-between h-4 m-4">
@@ -145,9 +131,9 @@ export default function RootLayout({
                 >
                   Nitish
                 </Link>
-                {hasMounted && currentTime && (
+                {/* {hasMounted && currentTime && (
                   <span>{formatTime(currentTime)}</span>
-                )}
+                )} */}
 
                 {/* Desktop Navigation */}
                 <div className="hidden md:flex items-center space-x-5 gap-2 px-4 py-2 rounded-4xl bg-slate-100 dark:bg-slate-800">
@@ -155,9 +141,8 @@ export default function RootLayout({
                     <Link
                       key={item.path}
                       href={item.path}
-                      className={`font-inter px-2 text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-primary transition-colors duration-200 ${
-                        pathname === item.path ? "text-primary" : ""
-                      }`}
+                      className={`font-inter px-2 text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-primary transition-colors duration-200 ${pathname === item.path ? "text-primary" : ""
+                        }`}
                     >
                       {item.label}
                     </Link>
@@ -187,9 +172,8 @@ export default function RootLayout({
               </nav>
               {/* Mobile Menu */}
               <div
-                className={`md:hidden fixed bg-white dark:bg-slate-900 w-screen ${
-                  isMenuOpen ? "block" : "hidden"
-                }`}
+                className={`md:hidden fixed bg-white dark:bg-slate-900 w-screen ${isMenuOpen ? "block" : "hidden"
+                  }`}
               >
                 <div className="flex flex-col p-4 space-y-4 sm:px-5 shadow-lg">
                   {navItems.map((item) => (
@@ -206,9 +190,9 @@ export default function RootLayout({
               </div>
             </div>
           </header>
-
-          <main className="pt-16">{children}</main>
-
+          <AnimatePresence>
+            <main className="pt-16">{children}</main>
+          </AnimatePresence>
           {/* Fixed Contact Sidebar */}
           <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40">
             <div className="flex flex-col gap-4 p-3 rounded-full bg-white/10 dark:bg-slate-800/10 backdrop-blur-md shadow-lg border border-white/20 dark:border-slate-700/20">
