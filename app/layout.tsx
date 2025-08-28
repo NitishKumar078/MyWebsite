@@ -43,7 +43,6 @@ export default function RootLayout({
     const savedTheme =
       typeof window !== "undefined" ? localStorage.getItem("theme") : null;
     if (savedTheme === "dark") setIsDark(true);
-
   }, []);
 
   // Theme toggling effect and persist to localStorage
@@ -61,7 +60,6 @@ export default function RootLayout({
   const toggleTheme = () => {
     setIsDark((prev) => !prev);
   };
-
 
   const navItems = [
     { path: "/", label: "Home" },
@@ -106,9 +104,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="min-h-screen bg-white dark:bg-slate-900 transition-colors duration-200">
-          <header
-            className={`fixed w-full z-50 transition-all duration-200 `}
-          >
+          <header className={`fixed w-full z-50 transition-all duration-200 `}>
             <div className="mx-auto px-6">
               <nav className="flex items-center justify-between h-4 m-4  ">
                 <Link
@@ -122,13 +118,14 @@ export default function RootLayout({
                 )} */}
 
                 {/* Desktop Navigation */}
-                <div className="hidden md:flex items-center space-x-5 gap-2 px-4 py-2 rounded-4xl  rounded-full bg-white/10 dark:bg-slate-800/10 backdrop-blur-md shadow-lg border border-white/20 dark:border-slate-700/20">
+                <div className="hidden md:flex items-center space-x-5 gap-2 px-4 py-2 rounded-full bg-white/10 dark:bg-slate-800/10 backdrop-blur-md shadow-lg border border-white/20 dark:border-slate-700/20">
                   {navItems.map((item) => (
                     <Link
                       key={item.path}
                       href={item.path}
-                      className={`font-inter px-2 text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-primary transition-colors duration-200 ${pathname === item.path ? "text-primary" : ""
-                        }`}
+                      className={`font-inter px-2 text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-primary transition-colors duration-200 ${
+                        pathname === item.path ? "text-primary" : ""
+                      }`}
                     >
                       {item.label}
                     </Link>
@@ -158,8 +155,9 @@ export default function RootLayout({
               </nav>
               {/* Mobile Menu */}
               <div
-                className={`md:hidden fixed bg-white dark:bg-slate-900 w-screen ${isMenuOpen ? "block" : "hidden"
-                  }`}
+                className={`md:hidden fixed bg-white dark:bg-slate-900 w-screen ${
+                  isMenuOpen ? "block" : "hidden"
+                }`}
               >
                 <div className="flex flex-col p-4 space-y-4 sm:px-5 shadow-lg">
                   {navItems.map((item) => (
@@ -177,15 +175,18 @@ export default function RootLayout({
             </div>
           </header>
           <AnimatePresence>
-            <main className="pt-16" style={{
-              background: isDark
-                ? `radial-gradient(70% 55% at 50% 50%, #2a5d77 0%, #184058 18%, #0f2a43 34%, #0a1b30 50%, #071226 66%, #040d1c 80%, #020814 92%, #01040d 97%, #000309 100%),
+            <main
+              className="pt-16"
+              style={{
+                background: isDark
+                  ? `radial-gradient(70% 55% at 50% 50%, #2a5d77 0%, #184058 18%, #0f2a43 34%, #0a1b30 50%, #071226 66%, #040d1c 80%, #020814 92%, #01040d 97%, #000309 100%),
              radial-gradient(160% 130% at 10% 10%, rgba(0,0,0,0) 38%, #000309 76%, #000208 100%),
              radial-gradient(160% 130% at 90% 90%, rgba(0,0,0,0) 38%, #000309 76%, #000208 100%)`
-                : "radial-gradient(125% 125% at 50% 90%, #fff 40%, #475569 100%)",
-            }}
+                  : "radial-gradient(125% 125% at 50% 90%, #fff 40%, #29a4e1 100%)",
+              }}
             >
-              {children}</main>
+              {children}
+            </main>
           </AnimatePresence>
           {/* Fixed Contact Sidebar */}
           <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40">
